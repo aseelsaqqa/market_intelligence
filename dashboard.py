@@ -8,7 +8,7 @@ from data_cleaning import clean_reviews
 import scraper
 
 from database import create_tables
-
+from excel_report import create_excel_report
 
 print("SCRAPER FILE:", scraper.__file__)
 st.set_page_config(
@@ -305,6 +305,29 @@ if not sentiment_df.empty:
     )
 else:
     st.info("لا توجد بيانات مشاعر كافية لاستخراج الاستنتاجات.")
+
+
+st.divider()
+st.subheader("📥 تنزيل تقرير المنافسين")
+
+try:
+    excel_path = create_excel_report(
+        review_summary_path=review_path,
+        rating_distribution_path=rating_path,
+        sentiment_summary_path=sentiment_path,
+        output_path=os.path.join(DATA_DIR, "competitor_intelligence_report.xlsx"),
+    )
+
+    with open(excel_path, "rb") as excel_file:
+        st.download_button(
+            label="📊 تحميل تقرير Excel",
+            data=excel_file.read(),
+            file_name="competitor_intelligence_report.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        )
+
+except Exception as e:
+    st.error(f"تعذر إنشاء تقرير Excel: {e}")
 
 
 
