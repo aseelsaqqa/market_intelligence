@@ -6,13 +6,17 @@ import os
 from scraper import search_apps
 from data_cleaning import clean_reviews
 import scraper
+
+from database import create_tables
+
+
 print("SCRAPER FILE:", scraper.__file__)
 st.set_page_config(
     page_title="Market Intelligence Dashboard",
     page_icon="📊",
     layout="wide"
 )
-
+create_tables()
 st.title("📊 Market Intelligence & Competitor Analysis")
 st.markdown("Compare competitor apps using user review data.")
 
