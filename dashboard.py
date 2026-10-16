@@ -127,17 +127,25 @@ sentiment_path = os.path.join(DATA_DIR, "sentiment_summary.csv")
 
 required_files = [review_path, rating_path, sentiment_path]
 
-if not all(os.path.exists(file) for file in required_files):
-    st.error("Analysis files are missing. Please run analysis.py first.")
+files_exist = all(os.path.exists(file) for file in required_files)
+
+if files_exist and st.session_state["analysis_completed"]:
+    review_df = pd.read_csv(review_path)
+    rating_df = pd.read_csv(rating_path, index_col=0)
+    sentiment_df = pd.read_csv(sentiment_path, index_col=0)
+
+    ai_reviews_path = os.path.join(DATA_DIR, "competitor_reviews_ai.csv")
+
+    if os.path.exists(ai_reviews_path):
+        ai_reviews_df = pd.read_csv(ai_reviews_path)
+    else:
+        ai_reviews_df = pd.DataFrame()
+else:
+    st.info(
+        "اختاري التطبيقات واضغطي Start Competitor Analysis "
+        "لجمع المراجعات وإنشاء نتائج التحليل."
+    )
     st.stop()
-
-review_df = pd.read_csv(review_path)
-rating_df = pd.read_csv(rating_path, index_col=0)
-sentiment_df = pd.read_csv(sentiment_path, index_col=0)
-
-ai_reviews_path = os.path.join(DATA_DIR, "competitor_reviews_ai.csv")
-ai_reviews_df = pd.read_csv(ai_reviews_path)
-
 
 if not st.session_state["analysis_completed"]:
     st.info("Choose competitor apps and click Start Competitor Analysis to view results.")
