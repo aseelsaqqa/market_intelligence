@@ -1,6 +1,7 @@
 
 import os
 import pandas as pd
+import torch
 from transformers import pipeline
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
