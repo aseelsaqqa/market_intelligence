@@ -1,0 +1,22 @@
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Secrets
+.env
+.streamlit/secrets.toml
+
+# Local database and collected data
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+data/*.csv
+
+# IDE
+.idea/
+
+# Logs
+*.log
