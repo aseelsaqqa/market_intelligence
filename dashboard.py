@@ -8,7 +8,7 @@ from data_cleaning import clean_reviews
 import scraper
 
 from database import create_tables
-from excel_report import create_excel_report
+from report import create_excel_report
 
 print("SCRAPER FILE:", scraper.__file__)
 st.set_page_config(
